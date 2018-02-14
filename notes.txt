@@ -1,0 +1,2 @@
+# to update data from django to json
+python manage.py dumpdata updates.Update --format json --indent 4
