@@ -13,7 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 
 from updates.views import (
@@ -26,9 +26,10 @@ from updates.views import (
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^json/example1/$', json_example_view),
-    url(r'^json/example2/$', JsonCBV.as_view()),
-    url(r'^json/example3/$', JsonCBV2.as_view()),
-    url(r'^json/example/serializedDetail$', SerializeDetailView.as_view()),
-    url(r'^json/example/serializedList$', SerializeListView.as_view())
+    url(r'^api/updates/', include('updates.api.urls')),
+    # url(r'^json/example1/$', json_example_view),
+    # url(r'^json/example2/$', JsonCBV.as_view()),
+    # url(r'^json/example3/$', JsonCBV2.as_view()),
+    # url(r'^json/example/serializedDetail$', SerializeDetailView.as_view()),
+    # url(r'^json/example/serializedList$', SerializeListView.as_view())
 ]
