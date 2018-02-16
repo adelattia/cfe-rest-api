@@ -86,6 +86,8 @@ class UpdateModelListAPIView(HttpResponseMixin, CSRFExemptMixin, View):
     '''
     List View
     Create View
+    Update
+    Delete
     '''
     is_json = True
 
