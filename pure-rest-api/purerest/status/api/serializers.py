@@ -32,4 +32,5 @@ class StatusSerializer(serializers.ModelSerializer):
         image = data.get('image', None)
         if content is None and image is None:
             raise serializers.ValidationError('Content or image is required.')
+        return data
 
