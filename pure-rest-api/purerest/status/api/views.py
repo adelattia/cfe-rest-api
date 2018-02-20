@@ -1,5 +1,6 @@
 import json
-from rest_framework import generics, mixins
+from rest_framework import generics, mixins, permissions
+from rest_framework.authentication import SessionAuthentication
 # from rest_framework.generics import ListAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -45,9 +46,10 @@ class StatusAPIDetailView(
     #         return instance.delete()
     #     return None
 
-class StatusAPIView(mixins.CreateModelMixin,generics.ListAPIView):
-    permission_classes = []
-    authentication_classes = []
+
+class StatusAPIView(mixins.CreateModelMixin, generics.ListAPIView):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    authentication_classes = [SessionAuthentication]
     queryset = Status.objects.all()
     serializer_class = StatusSerializer
     passed_id = None
