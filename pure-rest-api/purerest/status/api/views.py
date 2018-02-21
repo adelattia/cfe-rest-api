@@ -59,12 +59,11 @@ class StatusAPIView(mixins.CreateModelMixin, generics.ListAPIView):
             qs = qs.filter(content__icontains=query)
         return qs
 
-
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
-    # def perform_create(self, serializer):
-    #     serializer.save(user=self.request.user)
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
 
 
 

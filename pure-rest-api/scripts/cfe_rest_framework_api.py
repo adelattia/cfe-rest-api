@@ -4,39 +4,62 @@ import os
 
 import time
 
+import sys
+
 ENDPOINT = "http://127.0.0.1:8000/api/status/"
 AUTH_ENDPOINT = "http://127.0.0.1:8000/api/auth/jwt/"
 REFRESH_ENDPOINT = 'http://127.0.0.1:8000/api/auth/refresh/'
 
+
 headers = {
-    'content-type': 'application/json'
+    "Content-Type": "application/json",
 }
+
+image_path = os.path.join(os.getcwd(), 'logo.jpg')
+
+
 
 data = {
     'username': 'adel',
     'password': 'adeladel',
 }
 
-image_path = os.path.join(os.getcwd(), 'logo.jpg')
-
 
 r = requests.post(AUTH_ENDPOINT, data=json.dumps(data), headers=headers)
 token = r.json()['token']
+
 print(token)
 
-refresh_data = {
-    'token': token
+headers = {
+    # "Content-Type": "application/json",
+    "Authorization": "JWT " + token,
 }
 
-# should wait otherwise we'll get the same token
-time.sleep(1.05)
+print(headers)
+post_data = {"content": "updated"}
 
-new_r = requests.post(REFRESH_ENDPOINT, data=json.dumps(refresh_data), headers=headers)
-new_token = new_r.json()['token']
+# sys.exit()
+with open(image_path, 'rb') as img:
+    file_data = {
+        'image': img
+    }
+    # posted_response = requests.post(ENDPOINT, data=post_data, headers=headers, files=file_data)
+    posted_response = requests.put(ENDPOINT + "37/", data=post_data, headers=headers, files=file_data)
+    print(posted_response.text)
 
-print("###########################")
-
-print(new_token)
+# refresh_data = {
+#     'token': token
+# }
+#
+# # should wait otherwise we'll get the same token
+# time.sleep(1.05)
+#
+# new_r = requests.post(REFRESH_ENDPOINT, data=json.dumps(refresh_data), headers=headers)
+# new_token = new_r.json()['token']
+#
+# print("###########################")
+#
+# print(new_token)
 
 
 
