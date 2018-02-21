@@ -8,23 +8,27 @@ import sys
 
 ENDPOINT = "http://127.0.0.1:8000/api/status/"
 AUTH_ENDPOINT = "http://127.0.0.1:8000/api/auth/"
+REGISTER_ENDPOINT = "http://127.0.0.1:8000/api/auth/register/"
 REFRESH_ENDPOINT = 'http://127.0.0.1:8000/api/auth/refresh/'
 
 
 headers = {
     "Content-Type": "application/json",
+    # "Authorization": "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImFkZWwiLCJleHAiOjE1MTkyMjYyMTEsImVtYWlsIjoiYWRlbEBnbWFpbC5jb20iLCJvcmlnX2lhdCI6MTUxOTIyNTkxMX0.PmPDvDeSUHEdr0ngjoeL4Vxo_YY0dvLO7o1gI_Z6Lo0",
 }
 
 image_path = os.path.join(os.getcwd(), 'logo.jpg')
 
 
 data = {
-    'username': 'adel@gmail.com',
+    'username': 'adel4',
+    'email': 'adel4@gmail.com',
     'password': 'adeladel',
+    'password2': 'adeladel',
 }
 
 
-r = requests.post(AUTH_ENDPOINT, data=json.dumps(data), headers=headers)
+r = requests.post(REGISTER_ENDPOINT, data=json.dumps(data), headers=headers)
 token = r.json()
 #['token']
 
