@@ -2,25 +2,61 @@ import json
 import requests
 import os
 
+import time
 
 ENDPOINT = "http://127.0.0.1:8000/api/status/"
-image_path = os.path.join(os.getcwd(), 'logo.jpg')
+AUTH_ENDPOINT = "http://127.0.0.1:8000/api/auth/jwt/"
+REFRESH_ENDPOINT = 'http://127.0.0.1:8000/api/auth/refresh/'
 
-get_endpoint = ENDPOINT + str(32)
-data = json.dumps({'id': 1234})
-post_data = json.dumps({'content': 'Some random content'})
-
-
-r = requests.get(get_endpoint)
-print(r.text)
-r2 = requests.get(ENDPOINT)
-print(r2.status_code)
-
-post_headers = {
+headers = {
     'content-type': 'application/json'
 }
-post_response = requests.post(ENDPOINT, data=post_data, headers=post_headers)
-print(post_response.text)
+
+data = {
+    'username': 'adel',
+    'password': 'adeladel',
+}
+
+image_path = os.path.join(os.getcwd(), 'logo.jpg')
+
+
+r = requests.post(AUTH_ENDPOINT, data=json.dumps(data), headers=headers)
+token = r.json()['token']
+print(token)
+
+refresh_data = {
+    'token': token
+}
+
+# should wait otherwise we'll get the same token
+time.sleep(1.05)
+
+new_r = requests.post(REFRESH_ENDPOINT, data=json.dumps(refresh_data), headers=headers)
+new_token = new_r.json()['token']
+
+print("###########################")
+
+print(new_token)
+
+
+
+
+
+# get_endpoint = ENDPOINT + str(32)
+# data = json.dumps({'id': 1234})
+# post_data = json.dumps({'content': 'Some random content'})
+#
+#
+# r = requests.get(get_endpoint)
+# print(r.text)
+# r2 = requests.get(ENDPOINT)
+# print(r2.status_code)
+#
+# post_headers = {
+#     'content-type': 'application/json'
+# }
+# post_response = requests.post(ENDPOINT, data=post_data, headers=post_headers)
+# print(post_response.text)
 
 
 
