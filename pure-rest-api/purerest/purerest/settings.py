@@ -126,3 +126,5 @@ STATIC_URL = '/static/'
 prt = os.path.dirname
 MEDIA_ROOT = os.path.join(prt(prt(prt(BASE_DIR))), 'static-server', 'media-root')
 MEDIA_URL = '/media/'
+
+from purerest.rest_conf.main import *
