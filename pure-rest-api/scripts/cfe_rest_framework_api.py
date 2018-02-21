@@ -21,8 +21,8 @@ image_path = os.path.join(os.getcwd(), 'logo.jpg')
 
 
 data = {
-    'username': 'adel4',
-    'email': 'adel4@gmail.com',
+    'username': 'adel8',
+    'email': 'adel8@gmail.com',
     'password': 'adeladel',
     'password2': 'adeladel',
 }
