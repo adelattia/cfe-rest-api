@@ -39,6 +39,7 @@ class AuthAPIView(APIView):
                 return Response(response)
         return Response({"detail": "Invalid credentials"}, status=401)
 
+
 class RegisterAPIView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserRegisterSerializer

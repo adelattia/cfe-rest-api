@@ -14,25 +14,37 @@ REFRESH_ENDPOINT = 'http://127.0.0.1:8000/api/auth/refresh/'
 
 headers = {
     "Content-Type": "application/json",
-    "Authorization": "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxNSwidXNlcm5hbWUiOiJhZGVsMTUiLCJleHAiOjE1MTkyOTM1NjksImVtYWlsIjoiYWRlbDE1QGdtYWlsLmNvbSIsIm9yaWdfaWF0IjoxNTE5MjkzMjY5fQ.9G3PyIvdf7W8wkaS2DfYwodx7FsBrKN6kt-Xqkgd1Uk",
+    # "Authorization": "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxNSwidXNlcm5hbWUiOiJhZGVsMTUiLCJleHAiOjE1MTkyOTM1NjksImVtYWlsIjoiYWRlbDE1QGdtYWlsLmNvbSIsIm9yaWdfaWF0IjoxNTE5MjkzMjY5fQ.9G3PyIvdf7W8wkaS2DfYwodx7FsBrKN6kt-Xqkgd1Uk",
 }
 
 image_path = os.path.join(os.getcwd(), 'logo.jpg')
 
 
 data = {
-    'username': 'adel16',
-    'email': 'adel16@gmail.com',
+    'username': 'adel',
     'password': 'adeladel',
-    'password2': 'adeladel',
 }
 
 
-# r = requests.post(AUTH_ENDPOINT, data=json.dumps(data), headers=headers)
-r = requests.post(REGISTER_ENDPOINT, data=json.dumps(data), headers=headers)
-token = r.json()
-
+r = requests.post(AUTH_ENDPOINT, data=json.dumps(data), headers=headers)
+# r = requests.post(REGISTER_ENDPOINT, data=json.dumps(data), headers=headers)
+token = r.json()['token']
 print(token)
+# sys.exit()
+headers = {
+    "Content-Type": "application/json",
+    "Authorization": "JWT " + token,
+}
+
+data2 = {
+    'content': 'jdid n'
+}
+
+
+r = requests.put(ENDPOINT + "38/", data=json.dumps(data2), headers=headers)
+# r = requests.post(ENDPOINT, data=json.dumps(data2), headers=headers)
+print(r.json())
+
 #
 # headers = {
 #     # "Content-Type": "application/json",
